@@ -1,48 +1,56 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Sitederelacionamento by jeancarlosnovaes</title>
+<div id="disqus_thread"></div>
+<script>
+window.addEventListener('message', receiveMessage, false);
+function receiveMessage(event)
+{
+	if (event.data) {
+		var msg;
+		try {
+			msg = JSON.parse(event.data);
+		} catch (err) {
+			// Do nothing
+		}
+		if (!msg)
+			return false;
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Sitederelacionamento</h1>
-        <p>Criando um site para falar sobre sites de relacionamento</p>
+		if (msg.name === 'resize') {
+			window.parent.postMessage({
+			  sentinel: 'amp',
+			  type: 'embed-size',
+			  height: msg.data.height
+			}, '*');
+		}
+	}
+}
+</script>
+<script>
+	function getQueryVariable(variable)
+	{
+		   var query = window.location.search.substring(1);
+		   var vars = query.split("&");
+		   for (var i=0;i<vars.length;i++) {
+				   var pair = vars[i].split("=");
+				   if(pair[0] == variable){return pair[1];}
+		   }
+		   return(false);
+	}
+	/**
+	 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+	 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+	 */
+	var disqus_config = function () { 
+		//this.page.url = window.location;  // Replace PAGE_URL with your page's canonical URL variable
+		//this.page.identifier = window.location.hash; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+		this.page.url = getQueryVariable("url");
+	};
+	(function() {  // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
 
-        <p class="view"><a href="https://github.com/jeancarlosnovaes/sitederelacionamento">View the Project on GitHub <small>jeancarlosnovaes/sitederelacionamento</small></a></p>
+		//s.src = '//EXAMPLE.disqus.com/embed.js';
+		shortname = getQueryVariable("shortname");
+		s.src = '//' + shortname + '.disqus.com/embed.js';
 
-
-        <ul>
-          <li><a href="https://github.com/jeancarlosnovaes/sitederelacionamento/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/jeancarlosnovaes/sitederelacionamento/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/jeancarlosnovaes/sitederelacionamento">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a id="sitederelacionamento" class="anchor" href="#sitederelacionamento" aria-hidden="true"><span class="octicon octicon-link"></span></a>sitederelacionamento</h1>
-
-<p>Criando um site para falar sobre sites de relacionamento</p>
-
-<p><a href="http://matematicabasica.net">Matemática Básica</a>
-<a href="http://www.compararcelulares.com.br">Comparar Celulares</a>
-<a href="http://www.regradetres.com.br">Regra de Três</a></p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/jeancarlosnovaes">jeancarlosnovaes</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
-  </body>
-</html>
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
